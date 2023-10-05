@@ -1,7 +1,7 @@
 import { Module, Provider } from "@nestjs/common";
 import { UserService } from "./user.service";
-import { FakeDatabaseModule } from "src/infraestructure/fake-database/database.module";
-import { DomainModule } from "src/domain/domain.module";
+import { FakeDatabaseModule } from "./../infraestructure/fake-database/database.module";
+import { DomainModule } from "./../domain/domain.module";
 
 const providers: Provider[] = [
     {

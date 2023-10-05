@@ -1,7 +1,7 @@
 import { Inject } from "@nestjs/common";
-import { User } from "src/domain/model/user.model";
-import { IUserRepository } from "src/domain/repository/user.interface";
-import { IUserService } from "src/domain/service/user.interface";
+import { User } from "./../domain/model/user.model";
+import { IUserRepository } from "./../domain/repository/user.interface";
+import { IUserService } from "./../domain/service/user.interface";
 
 export class UserService implements IUserService {
     constructor(

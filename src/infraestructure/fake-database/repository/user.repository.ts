@@ -1,8 +1,8 @@
 import { Inject } from "@nestjs/common";
-import { User } from "src/domain/model/user.model";
-import { IUserRepository } from "src/domain/repository/user.interface";
-import { UserDao } from "../dao/user.dao";
-import { UserEntityMapper } from "../mapper/user.mapper";
+import { User } from "./../../../domain/model/user.model";
+import { IUserRepository } from "./../../../domain/repository/user.interface";
+import { UserDao } from "./../dao/user.dao";
+import { UserEntityMapper } from "./../mapper/user.mapper"; 
 
 export class UserRepository implements IUserRepository {
     constructor(
