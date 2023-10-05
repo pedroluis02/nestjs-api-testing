@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common";
 import { ServiceModule } from "./../service/service.module";
-import { CurrentUserController } from "./controller/currentUser.Controller";
+import { CurrentUserController } from "./controller/currentUser.controller";
 import { UserDtoMapper } from "./mapper/userDto.mapper";
 import { GreetingController } from "./controller/greeting.controller"; 
 
