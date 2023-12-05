@@ -1,19 +1,19 @@
-import { Controller, Get, Inject } from "@nestjs/common";
-import { IUserService } from "../../domain/service/user.interface";
-import { CurrentUserDto } from "../dto/currentUser.dto";
-import { UserDtoMapper } from "../mapper/userDto.mapper";
+import { Controller, Get, Inject } from '@nestjs/common';
+import { IUserService } from '../../domain/service/user.interface';
+import { CurrentUserDto } from '../dto/currentUser.dto';
+import { UserDtoMapper } from '../mapper/userDto.mapper';
 
 @Controller('current-user')
 export class CurrentUserController {
-    constructor(
-        @Inject('USER_SERVICE')
-        private readonly service: IUserService,
-        private readonly mapper: UserDtoMapper,
-    ) {}
+  constructor(
+    @Inject('USER_SERVICE')
+    private readonly service: IUserService,
+    private readonly mapper: UserDtoMapper,
+  ) {}
 
-    @Get()
-    async get(): Promise<CurrentUserDto> {
-        const model = this.service.getCurrent()
-        return this.mapper.fromDomain(model)
-    }
+  @Get()
+  async get(): Promise<CurrentUserDto> {
+    const model = this.service.getCurrent();
+    return this.mapper.fromDomain(model);
+  }
 }

@@ -1,5 +1,5 @@
-import { User } from "./../model/user.model";
+import { User } from './../model/user.model';
 
 export interface IUserRepository {
-    getCurrent() : User
+  getCurrent(): User;
 }

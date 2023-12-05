@@ -17,15 +17,13 @@ describe('AppController (e2e)', () => {
   });
 
   it('/ (GET)', () => {
-    return request(app.getHttpServer())
-      .get('/')
-      .expect(404)
+    return request(app.getHttpServer()).get('/').expect(404);
   });
 
   it('/greeting (GET)', () => {
     return request(app.getHttpServer())
       .get('/greeting')
       .expect(200)
-      .expect(`{"message":"${GreetingDto.default().message}"}`)
+      .expect(`{"message":"${GreetingDto.default().message}"}`);
   });
 });
