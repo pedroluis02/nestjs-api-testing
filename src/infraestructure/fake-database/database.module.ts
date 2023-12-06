@@ -4,7 +4,7 @@ import { PROJECT_TYPE_REPOSITORY } from './../../domain/repository/project-type.
 import { UserEntityMapper } from './mapper/user.mapper';
 import { UserDao } from './dao/user.dao';
 import { UserRepository } from './repository/user.repository';
-import { ProjectTypeReposiotry } from './repository/project-type.repository';
+import { ProjectTypeRepository } from './repository/project-type.repository';
 
 const providers: Provider[] = [
   {
@@ -13,7 +13,7 @@ const providers: Provider[] = [
   },
   {
     provide: PROJECT_TYPE_REPOSITORY,
-    useClass: ProjectTypeReposiotry,
+    useClass: ProjectTypeRepository,
   },
 ];
 

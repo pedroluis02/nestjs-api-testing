@@ -2,7 +2,7 @@ import { ProjectType } from './../../../domain/model/project-type.model';
 import { ProyectTypeEntity } from './../entity/project-type.entity';
 import { IProjectTypeRepository } from './../../../domain/repository/project-type.interface';
 
-export class ProjectTypeReposiotry implements IProjectTypeRepository {
+export class ProjectTypeRepository implements IProjectTypeRepository {
   private readonly types: ProyectTypeEntity[] = [
     { id: 1, name: 'Private', description: '' },
     { id: 2, name: 'Public', description: '' },
