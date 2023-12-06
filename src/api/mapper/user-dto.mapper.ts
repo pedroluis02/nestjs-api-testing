@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { User } from './../../domain/model/user.model';
-import { CurrentUserDto } from './../dto/currentUser.dto';
+import { CurrentUserDto } from './../dto/current-user.dto';
 
 @Injectable()
 export class UserDtoMapper {

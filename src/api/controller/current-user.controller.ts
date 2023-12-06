@@ -1,7 +1,7 @@
-import { Controller, Get, Inject } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { IUserService } from './../../domain/service/user.interface';
-import { CurrentUserDto } from './../dto/currentUser.dto';
-import { UserDtoMapper } from './../mapper/userDto.mapper';
+import { CurrentUserDto } from './../dto/current-user.dto';
+import { UserDtoMapper } from './../mapper/user-dto.mapper';
 
 @Controller('current-user')
 export class CurrentUserController {
