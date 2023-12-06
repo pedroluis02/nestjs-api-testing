@@ -27,4 +27,8 @@ export class ProjectTypeService implements IProjectTypeService {
   update(model: Partial<ProjectType>): void {
     this.repository.update(model);
   }
+
+  delete(id: number): void {
+    this.repository.delete(id);
+  }
 }

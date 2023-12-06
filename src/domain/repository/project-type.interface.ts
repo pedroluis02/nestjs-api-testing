@@ -7,4 +7,5 @@ export interface IProjectTypeRepository {
   findOneBy(id: number): ProjectType | undefined;
   insert(model: ProjectType): ProjectType;
   update(model: Partial<ProjectType>): void;
+  delete(id: number): void;
 }

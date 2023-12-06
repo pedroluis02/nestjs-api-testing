@@ -50,7 +50,18 @@ export class ProjectTypeRepository implements IProjectTypeRepository {
     }
   }
 
+  delete(id: number): void {
+    const index = this.findIndexEntityBy(id);
+    if (index > -1) {
+      this.types.splice(index, 1);
+    }
+  }
+
   private findEntityBy(id: number): ProjectTypeEntity | undefined {
-    return this.types.find((t) => t.id === id);
+    return this.types.find((t, index) => t.id === id);
+  }
+
+  private findIndexEntityBy(id: number): number {
+    return this.types.findIndex((t) => t.id === id);
   }
 }

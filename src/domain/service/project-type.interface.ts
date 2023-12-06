@@ -7,4 +7,5 @@ export interface IProjectTypeService {
   getOneBy(id: number): ProjectType;
   create(model: ProjectType): ProjectType;
   update(model: Partial<ProjectType>): void;
+  delete(id: number): void;
 }

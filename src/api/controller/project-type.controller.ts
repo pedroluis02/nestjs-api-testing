@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpStatus,
@@ -63,5 +64,13 @@ export class ProjecTypeController {
     this.service.update(model);
 
     return 'Resource updated';
+  }
+
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  delete(@Param('id', ParseIntPipe) id: number) {
+    this.service.delete(id);
+
+    return 'Resource deleted';
   }
 }
