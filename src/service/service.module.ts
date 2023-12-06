@@ -1,13 +1,19 @@
 import { Module, Provider } from '@nestjs/common';
-import { UserService } from './user.service';
+import { IUserService } from './../domain/service/user.interface';
+import { PROJECT_TYPE_SERVICE } from './../domain/service/project-type.interface';
 import { FakeDatabaseModule } from './../infraestructure/fake-database/database.module';
 import { DomainModule } from './../domain/domain.module';
-import { IUserService } from './../domain/service/user.interface';
+import { UserService } from './user.service';
+import { ProjectTypeService } from './project-type.service';
 
 const providers: Provider[] = [
   {
     provide: IUserService,
     useClass: UserService,
+  },
+  {
+    provide: PROJECT_TYPE_SERVICE,
+    useClass: ProjectTypeService,
   },
 ];
 
