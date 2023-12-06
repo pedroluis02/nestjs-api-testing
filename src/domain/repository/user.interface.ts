@@ -1,5 +1,5 @@
 import { User } from './../model/user.model';
 
-export interface IUserRepository {
-  getCurrent(): User;
+export abstract class IUserRepository {
+  abstract getCurrent(): User;
 }

@@ -1,5 +1,5 @@
 import { User } from './../model/user.model';
 
-export interface IUserService {
-  getCurrent(): User;
+export abstract class IUserService {
+  abstract getCurrent(): User;
 }
