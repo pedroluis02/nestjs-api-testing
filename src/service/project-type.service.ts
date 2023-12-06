@@ -16,6 +16,10 @@ export class ProjectTypeService implements IProjectTypeService {
     return this.repository.findAlll();
   }
 
+  getOneBy(id: number): ProjectType {
+    return this.repository.findOneBy(id);
+  }
+
   create(model: ProjectType): ProjectType {
     return this.repository.insert(model);
   }

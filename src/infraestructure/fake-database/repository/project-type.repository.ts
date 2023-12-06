@@ -1,9 +1,9 @@
 import { ProjectType } from './../../../domain/model/project-type.model';
-import { ProyectTypeEntity } from './../entity/project-type.entity';
+import { ProjectTypeEntity } from './../entity/project-type.entity';
 import { IProjectTypeRepository } from './../../../domain/repository/project-type.interface';
 
 export class ProjectTypeRepository implements IProjectTypeRepository {
-  private readonly types: ProyectTypeEntity[] = [
+  private readonly types: ProjectTypeEntity[] = [
     { id: 1, name: 'Private', description: '' },
     { id: 2, name: 'Public', description: '' },
   ];
@@ -16,9 +16,22 @@ export class ProjectTypeRepository implements IProjectTypeRepository {
     }));
   }
 
+  findOneBy(id: number): ProjectType | undefined {
+    const entity = this.findEntityBy(id);
+    if (entity) {
+      return {
+        id: entity.id,
+        name: entity.name,
+        description: entity.description,
+      };
+    }
+
+    return null;
+  }
+
   insert(model: ProjectType): ProjectType {
     const newId = this.types.length + 1;
-    const entity: ProyectTypeEntity = {
+    const entity: ProjectTypeEntity = {
       id: newId,
       name: model.name,
       description: model.description,
@@ -30,14 +43,14 @@ export class ProjectTypeRepository implements IProjectTypeRepository {
   }
 
   update(model: Partial<ProjectType>): void {
-    const entity = this.findOneBy(model.id);
+    const entity = this.findEntityBy(model.id);
     if (entity) {
       entity.name = model.name || entity.name;
       entity.description = model.description || entity.description;
     }
   }
 
-  findOneBy(id: number): ProjectType | undefined {
+  private findEntityBy(id: number): ProjectTypeEntity | undefined {
     return this.types.find((t) => t.id === id);
   }
 }

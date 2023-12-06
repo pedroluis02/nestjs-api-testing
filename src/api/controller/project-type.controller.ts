@@ -32,6 +32,11 @@ export class ProjecTypeController {
     return this.service.getAll();
   }
 
+  @Get(':id')
+  getOneBy(@Param('id', ParseIntPipe) id: number): ProjectType {
+    return this.service.getOneBy(id);
+  }
+
   @Post()
   @HttpCode(HttpStatus.CREATED)
   create(@Body() body: CreateProjectTypeDto): ProjectType {
