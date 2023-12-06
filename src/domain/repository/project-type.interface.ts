@@ -4,4 +4,5 @@ export const PROJECT_TYPE_REPOSITORY = 'PROJECT_TYPE_REPOSITORY';
 
 export interface IProjectTypeRepository {
   findAlll(): ProjectType[];
+  insert(model: ProjectType): ProjectType;
 }

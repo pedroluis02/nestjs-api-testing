@@ -15,4 +15,8 @@ export class ProjectTypeService implements IProjectTypeService {
   getAll(): ProjectType[] {
     return this.repository.findAlll();
   }
+
+  create(model: ProjectType): ProjectType {
+    return this.repository.insert(model);
+  }
 }
