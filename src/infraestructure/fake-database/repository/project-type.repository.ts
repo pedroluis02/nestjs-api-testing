@@ -28,4 +28,16 @@ export class ProjectTypeRepository implements IProjectTypeRepository {
     model.id = newId;
     return model;
   }
+
+  update(model: Partial<ProjectType>): void {
+    const entity = this.findOneBy(model.id);
+    if (entity) {
+      entity.name = model.name || entity.name;
+      entity.description = model.description || entity.description;
+    }
+  }
+
+  findOneBy(id: number): ProjectType | undefined {
+    return this.types.find((t) => t.id === id);
+  }
 }

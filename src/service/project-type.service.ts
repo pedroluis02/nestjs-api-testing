@@ -19,4 +19,8 @@ export class ProjectTypeService implements IProjectTypeService {
   create(model: ProjectType): ProjectType {
     return this.repository.insert(model);
   }
+
+  update(model: Partial<ProjectType>): void {
+    this.repository.update(model);
+  }
 }
