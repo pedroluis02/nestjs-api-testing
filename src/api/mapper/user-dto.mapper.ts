@@ -4,6 +4,7 @@ import { CurrentUserDto } from './../dto/current-user.dto';
 
 @Injectable()
 export class UserDtoMapper {
-  fromDomain = (model: User): CurrentUserDto =>
-    new CurrentUserDto(model.id, model.name);
+  fromDomain(model: User): CurrentUserDto {
+    return { id: model.id, name: model.name, fullName: model.name };
+  }
 }

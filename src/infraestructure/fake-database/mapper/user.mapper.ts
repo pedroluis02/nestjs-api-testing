@@ -4,5 +4,7 @@ import { UserEntity } from './../entity/user.entity';
 
 @Injectable()
 export class UserEntityMapper {
-  toDomain = (entity: UserEntity): User => new User(entity.id, entity.name);
+  toDomain(entity: UserEntity): User {
+    return { id: entity._id, name: entity.name };
+  }
 }

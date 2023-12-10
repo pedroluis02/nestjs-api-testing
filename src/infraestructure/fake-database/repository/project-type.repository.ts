@@ -4,8 +4,8 @@ import { IProjectTypeRepository } from './../../../domain/repository/project-typ
 
 export class ProjectTypeRepository implements IProjectTypeRepository {
   private readonly types: ProjectTypeEntity[] = [
-    { id: 1, name: 'Private', description: '' },
-    { id: 2, name: 'Public', description: '' },
+    { _id: '1', id: 1, name: 'Private', description: '' },
+    { _id: '2', id: 2, name: 'Public', description: '' },
   ];
 
   findAlll(): ProjectType[] {
@@ -32,13 +32,14 @@ export class ProjectTypeRepository implements IProjectTypeRepository {
   insert(model: ProjectType): ProjectType {
     const newId = this.types.length + 1;
     const entity: ProjectTypeEntity = {
+      _id: newId.toString(),
       id: newId,
       name: model.name,
       description: model.description,
     };
     this.types.push(entity);
 
-    model.id = newId;
+    model.id = entity.id;
     return model;
   }
 

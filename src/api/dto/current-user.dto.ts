@@ -1,11 +1,5 @@
-export class CurrentUserDto {
-  id: number;
+export interface CurrentUserDto {
+  id: string;
   name: string;
   fullName: string;
-
-  constructor(id: number, name: string) {
-    this.id = id;
-    this.name = name;
-    this.fullName = name;
-  }
 }
