@@ -1,68 +1,40 @@
+import { Injectable } from '@nestjs/common';
 import { ProjectType } from './../../../domain/model/project-type.model';
-import { ProjectTypeEntity } from './../entity/project-type.entity';
 import { IProjectTypeRepository } from './../../../domain/repository/project-type.interface';
+import { ProjectTypeDao } from './../dao/project-type.dao';
+import { ProjectTypeEntityMapper } from './../mapper/project-type.mapper';
 
+@Injectable()
 export class ProjectTypeRepository implements IProjectTypeRepository {
-  private readonly types: ProjectTypeEntity[] = [
-    { _id: '1', id: 1, name: 'Private', description: '' },
-    { _id: '2', id: 2, name: 'Public', description: '' },
-  ];
+  constructor(
+    private readonly dao: ProjectTypeDao,
+    private readonly mapper: ProjectTypeEntityMapper,
+  ) {}
 
   findAlll(): ProjectType[] {
-    return this.types.map((t) => ({
-      id: t.id,
-      name: t.name,
-      description: t.description,
-    }));
+    const entities = this.dao.findAll();
+    return entities.map((e) => this.mapper.toDomain(e));
   }
 
   findOneBy(id: number): ProjectType | undefined {
-    const entity = this.findEntityBy(id);
-    if (entity) {
-      return {
-        id: entity.id,
-        name: entity.name,
-        description: entity.description,
-      };
-    }
-
-    return null;
+    const entity = this.dao.findBy(id);
+    return this.mapper.toDomain(entity);
   }
 
-  insert(model: ProjectType): ProjectType {
-    const newId = this.types.length + 1;
-    const entity: ProjectTypeEntity = {
-      _id: newId.toString(),
-      id: newId,
-      name: model.name,
-      description: model.description,
-    };
-    this.types.push(entity);
+  save(model: ProjectType): ProjectType {
+    const entity = this.mapper.toInsert(model);
+    const storedEntity = this.dao.insert(entity);
 
-    model.id = entity.id;
+    model.id = storedEntity.id;
     return model;
   }
 
   update(model: Partial<ProjectType>): void {
-    const entity = this.findEntityBy(model.id);
-    if (entity) {
-      entity.name = model.name || entity.name;
-      entity.description = model.description || entity.description;
-    }
+    const entity = this.mapper.toUpdate(model);
+    this.dao.update(entity);
   }
 
   delete(id: number): void {
-    const index = this.findIndexEntityBy(id);
-    if (index > -1) {
-      this.types.splice(index, 1);
-    }
-  }
-
-  private findEntityBy(id: number): ProjectTypeEntity | undefined {
-    return this.types.find((t, index) => t.id === id);
-  }
-
-  private findIndexEntityBy(id: number): number {
-    return this.types.findIndex((t) => t.id === id);
+    this.dao.delete(id);
   }
 }

@@ -1,16 +1,11 @@
 import { ProjectType } from './../domain/model/project-type.model';
 import { IProjectTypeService } from './../domain/service/project-type.interface';
-import {
-  IProjectTypeRepository,
-  PROJECT_TYPE_REPOSITORY,
-} from './../domain/repository/project-type.interface';
-import { Inject } from '@nestjs/common';
+import { IProjectTypeRepository } from './../domain/repository/project-type.interface';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class ProjectTypeService implements IProjectTypeService {
-  constructor(
-    @Inject(PROJECT_TYPE_REPOSITORY)
-    private readonly repository: IProjectTypeRepository,
-  ) {}
+  constructor(private readonly repository: IProjectTypeRepository) {}
 
   getAll(): ProjectType[] {
     return this.repository.findAlll();
@@ -21,7 +16,7 @@ export class ProjectTypeService implements IProjectTypeService {
   }
 
   create(model: ProjectType): ProjectType {
-    return this.repository.insert(model);
+    return this.repository.save(model);
   }
 
   update(model: Partial<ProjectType>): void {

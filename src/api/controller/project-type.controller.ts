@@ -12,10 +12,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { ProjectType } from './../../domain/model/project-type.model';
-import {
-  IProjectTypeService,
-  PROJECT_TYPE_SERVICE,
-} from './../../domain/service/project-type.interface';
+import { IProjectTypeService } from './../../domain/service/project-type.interface';
 import {
   CreateProjectTypeDto,
   UpdateProjectType,
@@ -23,10 +20,7 @@ import {
 
 @Controller('project-types')
 export class ProjecTypeController {
-  constructor(
-    @Inject(PROJECT_TYPE_SERVICE)
-    private readonly service: IProjectTypeService,
-  ) {}
+  constructor(private readonly service: IProjectTypeService) {}
 
   @Get()
   getAll(): ProjectType[] {
