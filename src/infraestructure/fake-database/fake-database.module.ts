@@ -9,10 +9,15 @@ import { ProjectTypeRepository } from './repository/project-type.repository';
 import { ProjectRepository } from './repository/project.repository';
 import { ProjectTypeDao } from './dao/project-type.dao';
 import { ProjectTypeEntityMapper } from './mapper/project-type.mapper';
+import { ProjectEntityMapper } from './mapper/project.mapper';
 
 const daos = [UserDao, ProjectTypeDao];
 
-const mappers = [UserEntityMapper, ProjectTypeEntityMapper];
+const mappers = [
+  UserEntityMapper,
+  ProjectTypeEntityMapper,
+  ProjectEntityMapper,
+];
 
 const providers: Provider[] = [
   {
