@@ -5,7 +5,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
-  Inject,
+  NotFoundException,
   Param,
   ParseIntPipe,
   Patch,
@@ -23,18 +23,23 @@ export class ProjecTypeController {
   constructor(private readonly service: IProjectTypeService) {}
 
   @Get()
-  getAll(): ProjectType[] {
+  getAll(): Promise<ProjectType[]> {
     return this.service.getAll();
   }
 
   @Get(':id')
-  getOneBy(@Param('id', ParseIntPipe) id: number): ProjectType {
-    return this.service.getOneBy(id);
+  async getOne(@Param('id', ParseIntPipe) id: number): Promise<ProjectType> {
+    const model = await this.service.getOne(id);
+    if (!model) {
+      throw new NotFoundException();
+    }
+
+    return model;
   }
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  create(@Body() body: CreateProjectTypeDto): ProjectType {
+  create(@Body() body: CreateProjectTypeDto): Promise<ProjectType> {
     const model: ProjectType = {
       id: 0,
       name: body.name,
@@ -46,25 +51,27 @@ export class ProjecTypeController {
 
   @Patch(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  update(
+  async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() body: UpdateProjectType,
-  ) {
+  ): Promise<ProjectType> {
     const model: Partial<ProjectType> = {
       id: id,
       name: body.name,
       description: body.description,
     };
-    this.service.update(model);
 
-    return 'Resource updated';
+    const updated = await this.service.update(model);
+    if (!updated) {
+      throw new NotFoundException();
+    }
+
+    return updated;
   }
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  delete(@Param('id', ParseIntPipe) id: number) {
-    this.service.delete(id);
-
-    return 'Resource deleted';
+  delete(@Param('id', ParseIntPipe) id: number): Promise<boolean> {
+    return this.service.delete(id);
   }
 }

@@ -7,23 +7,23 @@ import { Injectable } from '@nestjs/common';
 export class ProjectTypeService implements IProjectTypeService {
   constructor(private readonly repository: IProjectTypeRepository) {}
 
-  getAll(): ProjectType[] {
-    return this.repository.findAlll();
+  getAll(): Promise<ProjectType[]> {
+    return this.repository.findAll();
   }
 
-  getOneBy(id: number): ProjectType {
-    return this.repository.findOneBy(id);
+  getOne(id: number): Promise<ProjectType | null> {
+    return this.repository.findOne(id);
   }
 
-  create(model: ProjectType): ProjectType {
+  create(model: ProjectType): Promise<ProjectType> {
     return this.repository.save(model);
   }
 
-  update(model: Partial<ProjectType>): void {
-    this.repository.update(model);
+  update(model: Partial<ProjectType>): Promise<ProjectType | null> {
+    return this.repository.update(model);
   }
 
-  delete(id: number): void {
-    this.repository.delete(id);
+  delete(id: number): Promise<boolean> {
+    return this.repository.delete(id);
   }
 }

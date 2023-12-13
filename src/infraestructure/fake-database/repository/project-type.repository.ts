@@ -1,27 +1,31 @@
 import { Injectable } from '@nestjs/common';
 import { ProjectType } from './../../../domain/model/project-type.model';
 import { IProjectTypeRepository } from './../../../domain/repository/project-type.interface';
-import { ProjectTypeDao } from './../dao/project-type.dao';
-import { ProjectTypeEntityMapper } from './../mapper/project-type.mapper';
+import { FDbProjectTypeDao } from './../dao/project-type.dao';
+import { FDbProjectTypeEntityMapper } from './../mapper/project-type.mapper';
 
 @Injectable()
 export class ProjectTypeRepository implements IProjectTypeRepository {
   constructor(
-    private readonly dao: ProjectTypeDao,
-    private readonly mapper: ProjectTypeEntityMapper,
+    private readonly dao: FDbProjectTypeDao,
+    private readonly mapper: FDbProjectTypeEntityMapper,
   ) {}
 
-  findAlll(): ProjectType[] {
+  async findAll(): Promise<ProjectType[]> {
     const entities = this.dao.findAll();
-    return entities.map((e) => this.mapper.toDomain(e));
+    return entities.map(this.mapper.toDomain);
   }
 
-  findOneBy(id: number): ProjectType | undefined {
-    const entity = this.dao.findBy(id);
-    return this.mapper.toDomain(entity);
+  async findOne(id: number): Promise<ProjectType | null> {
+    const entity = this.dao.findOne(id);
+    if (entity) {
+      return this.mapper.toDomain(entity);
+    }
+
+    return null;
   }
 
-  save(model: ProjectType): ProjectType {
+  async save(model: ProjectType): Promise<ProjectType> {
     const entity = this.mapper.toInsert(model);
     const storedEntity = this.dao.insert(entity);
 
@@ -29,12 +33,17 @@ export class ProjectTypeRepository implements IProjectTypeRepository {
     return model;
   }
 
-  update(model: Partial<ProjectType>): void {
+  async update(model: Partial<ProjectType>): Promise<ProjectType | null> {
     const entity = this.mapper.toUpdate(model);
-    this.dao.update(entity);
+    const updated = this.dao.update(entity);
+    if (updated) {
+      return this.mapper.toDomain(updated);
+    }
+
+    return null;
   }
 
-  delete(id: number): void {
-    this.dao.delete(id);
+  async delete(id: number): Promise<boolean> {
+    return this.dao.delete(id);
   }
 }

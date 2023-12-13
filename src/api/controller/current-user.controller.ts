@@ -12,7 +12,7 @@ export class CurrentUserController {
 
   @Get()
   async get(): Promise<CurrentUserDto> {
-    const model = this.service.getCurrent();
+    const model = await this.service.getCurrent();
     return this.mapper.fromDomain(model);
   }
 }

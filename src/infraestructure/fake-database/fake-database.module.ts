@@ -2,21 +2,21 @@ import { Module, Provider } from '@nestjs/common';
 import { IUserRepository } from './../../domain/repository/user.interface';
 import { IProjectTypeRepository } from './../../domain/repository/project-type.interface';
 import { IProjectRepository } from './../../domain/repository/project.interface';
-import { UserEntityMapper } from './mapper/user.mapper';
-import { UserDao } from './dao/user.dao';
+import { FDbUserEntityMapper } from './mapper/user.mapper';
+import { FDbUserDao } from './dao/user.dao';
 import { UserRepository } from './repository/user.repository';
 import { ProjectTypeRepository } from './repository/project-type.repository';
 import { ProjectRepository } from './repository/project.repository';
-import { ProjectTypeDao } from './dao/project-type.dao';
-import { ProjectTypeEntityMapper } from './mapper/project-type.mapper';
-import { ProjectEntityMapper } from './mapper/project.mapper';
+import { FDbProjectTypeDao } from './dao/project-type.dao';
+import { FDbProjectTypeEntityMapper } from './mapper/project-type.mapper';
+import { FDbProjectEntityMapper } from './mapper/project.mapper';
 
-const daos = [UserDao, ProjectTypeDao];
+const daos = [FDbUserDao, FDbProjectTypeDao];
 
 const mappers = [
-  UserEntityMapper,
-  ProjectTypeEntityMapper,
-  ProjectEntityMapper,
+  FDbUserEntityMapper,
+  FDbProjectTypeEntityMapper,
+  FDbProjectEntityMapper,
 ];
 
 const providers: Provider[] = [
@@ -35,7 +35,7 @@ const providers: Provider[] = [
 ];
 
 @Module({
-  providers: [...daos, ...mappers, ...providers],
+  providers: [...mappers, ...daos, ...providers],
   exports: providers,
 })
 export class FakeDatabaseModule {}

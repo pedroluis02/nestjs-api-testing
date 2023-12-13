@@ -1,4 +1,4 @@
-export interface UserEntity {
+export interface FDbUserEntity {
   _id: string;
   id: number;
   name: string;

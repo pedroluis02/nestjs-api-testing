@@ -1,5 +1,5 @@
 import { User } from './../model/user.model';
 
 export abstract class IUserRepository {
-  abstract getCurrent(): User;
+  abstract getCurrent(): Promise<User>;
 }

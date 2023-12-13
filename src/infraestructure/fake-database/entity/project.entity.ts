@@ -1,11 +1,11 @@
-import { ProjectTypeEntity } from './project-type.entity';
-import { UserEntity } from './user.entity';
+import { FDbProjectTypeEntity } from './project-type.entity';
+import { FDbUserEntity } from './user.entity';
 
-export interface ProjectEntity {
+export interface FDbProjectEntity {
   _id: string;
   id: number;
-  type: ProjectTypeEntity;
-  user: UserEntity;
+  type: FDbProjectTypeEntity;
+  user: FDbUserEntity;
   name: string;
   title: string;
   description: string;

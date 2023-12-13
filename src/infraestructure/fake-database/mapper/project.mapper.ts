@@ -1,21 +1,21 @@
 import { Injectable } from '@nestjs/common';
-import { ProjectEntity } from './../entity/project.entity';
+import { FDbProjectEntity } from './../entity/project.entity';
 import { Project } from './../../../domain/model/project.model';
-import { ProjectTypeEntityMapper } from './project-type.mapper';
-import { UserEntityMapper } from './user.mapper';
+import { FDbProjectTypeEntityMapper } from './project-type.mapper';
+import { FDbUserEntityMapper } from './user.mapper';
 
 @Injectable()
-export class ProjectEntityMapper {
-  constructor(
-    private readonly userMapper: UserEntityMapper,
-    private readonly typeMapper: ProjectTypeEntityMapper,
-  ) {}
+export class FDbProjectEntityMapper {
+  /*constructor(
+    private readonly userMapper: FDbUserEntityMapper,
+    private readonly typeMapper: FDbProjectTypeEntityMapper,
+  ) {}*/
 
-  toDomain(entity: ProjectEntity): Project {
+  toDomain(entity: FDbProjectEntity): Project {
     return {
       id: entity._id,
-      type: this.typeMapper.toDomain(entity.type),
-      user: this.userMapper.toDomain(entity.user),
+      type: new FDbProjectTypeEntityMapper().toDomain(entity.type),
+      user: new FDbUserEntityMapper().toDomain(entity.user),
       name: entity.name,
       title: entity.title,
       description: entity.description,
@@ -23,7 +23,7 @@ export class ProjectEntityMapper {
     };
   }
 
-  toInsert(model: Project): ProjectEntity {
+  toInsert(model: Project): FDbProjectEntity {
     return {
       _id: '',
       id: 0,
@@ -36,7 +36,7 @@ export class ProjectEntityMapper {
     };
   }
 
-  toUpdate(model: Partial<Project>): Partial<ProjectEntity> {
+  toUpdate(model: Partial<Project>): Partial<FDbProjectEntity> {
     return {
       _id: model.id,
       title: model.title,

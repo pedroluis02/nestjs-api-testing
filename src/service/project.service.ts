@@ -7,23 +7,23 @@ import { IProjectRepository } from './../domain/repository/project.interface';
 export class ProjectService implements IProjectService {
   constructor(private readonly repository: IProjectRepository) {}
 
-  getAll(): Project[] {
+  getAll(): Promise<Project[]> {
     return this.repository.findAll();
   }
 
-  getOneBy(id: string): Project {
-    return this.repository.findOneBy(id);
+  getOne(id: string): Promise<Project | null> {
+    return this.repository.findOne(id);
   }
 
-  create(model: Project): Project {
+  create(model: Project): Promise<Project> {
     return this.repository.save(model);
   }
 
-  update(model: Partial<Project>): void {
-    this.repository.update(model);
+  update(model: Partial<Project>): Promise<Project | null> {
+    return this.repository.update(model);
   }
 
-  delete(id: string): void {
-    this.repository.delete(id);
+  delete(id: string): Promise<boolean> {
+    return this.repository.delete(id);
   }
 }

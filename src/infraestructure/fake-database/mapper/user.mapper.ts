@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { User } from './../../../domain/model/user.model';
-import { UserEntity } from './../entity/user.entity';
+import { FDbUserEntity } from './../entity/user.entity';
 
 @Injectable()
-export class UserEntityMapper {
-  toDomain(entity: UserEntity): User {
+export class FDbUserEntityMapper {
+  toDomain(entity: FDbUserEntity): User {
     return { id: entity._id, name: entity.name };
   }
 }
