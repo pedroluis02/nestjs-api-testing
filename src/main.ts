@@ -1,7 +1,13 @@
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
-import { setupSwagger } from './swagger';
+import { setupSwagger } from './config/swagger';
+import { ConfigService } from '@nestjs/config';
+
+function currentPort(app: INestApplication) {
+  const config = app.get(ConfigService);
+  return config.get('port');
+}
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -9,7 +15,8 @@ async function bootstrap() {
 
   setupSwagger(app);
 
-  await app.listen(3000);
+  const port = currentPort(app);
+  await app.listen(port);
 }
 
 bootstrap();
