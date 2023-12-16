@@ -1,6 +1,6 @@
 export interface FDbProjectTypeEntity {
-  _id: string;
-  id: number;
+  _id?: string;
+  id?: number;
   name: string;
   description: string;
 }

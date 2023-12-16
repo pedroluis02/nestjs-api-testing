@@ -1,6 +1,8 @@
 export interface FDbUserEntity {
-  _id: string;
-  id: number;
+  _id?: string;
+  id?: number;
   name: string;
-  nickname: string;
+  email: string;
+  username: string;
+  password?: string;
 }

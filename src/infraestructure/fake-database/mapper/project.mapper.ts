@@ -25,8 +25,6 @@ export class FDbProjectEntityMapper {
 
   toInsert(model: Project): FDbProjectEntity {
     return {
-      _id: '',
-      id: 0,
       user: null,
       type: { _id: null, id: model.type.id, name: null, description: '' },
       title: model.title,
