@@ -8,5 +8,5 @@ export interface Project {
   name: string;
   title: string;
   description: string;
-  createdAt: Date;
+  createdAt?: Date;
 }
