@@ -8,20 +8,21 @@ describe('UserRepository', () => {
   let repository: IUserRepository;
   let modelId: string;
 
+  const inputModel: User = {
+    id: '',
+    name: 'test-name-1',
+    email: 'test@exampple.com',
+    username: 'test',
+    password: 'test',
+  };
+
   beforeAll(async () => {
     module = await buildTestingModule();
     repository = module.get(IUserRepository);
   });
 
   it('save', async () => {
-    const model: User = {
-      id: '',
-      name: 'test-name-1',
-      email: 'test@exampple.com',
-      username: 'test',
-      password: 'test',
-    };
-    const result = await repository.save(model);
+    const result = await repository.save(inputModel);
     modelId = result.id;
 
     expect(result.id.length).toBeGreaterThan(0);
@@ -32,6 +33,14 @@ describe('UserRepository', () => {
 
     expect(model).not.toBeNull();
     expect(model.id).toBe(modelId);
+  });
+
+  it('find-one-by-username', async () => {
+    const model = await repository.findOneByUsername(inputModel.username);
+
+    expect(model).not.toBeNull();
+    expect(model._id).toBe(modelId);
+    expect(model.password).not.toBeNull();
   });
 
   it('update', async () => {
