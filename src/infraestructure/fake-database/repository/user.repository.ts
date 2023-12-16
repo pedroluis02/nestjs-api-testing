@@ -3,6 +3,7 @@ import { User } from './../../../domain/model/user.model';
 import { IUserRepository } from './../../../domain/repository/user.interface';
 import { FDbUserDao } from './../dao/user.dao';
 import { FDbUserEntityMapper } from './../mapper/user.mapper';
+import { UserLogin } from './../../../domain/model/user-login.model';
 
 @Injectable()
 export class UserRepository implements IUserRepository {
@@ -25,6 +26,20 @@ export class UserRepository implements IUserRepository {
     const entity = this.dao.findOne(id);
     if (entity) {
       return this.mapper.toDomain(entity);
+    }
+
+    return null;
+  }
+
+  async findOneByUsername(username: string): Promise<UserLogin | null> {
+    const entity = this.dao.findOneByUsername(username);
+    if (entity) {
+      return {
+        _id: entity._id,
+        id: entity.id,
+        username: entity.username,
+        password: entity.password,
+      };
     }
 
     return null;

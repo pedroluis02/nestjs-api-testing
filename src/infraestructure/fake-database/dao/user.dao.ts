@@ -23,7 +23,12 @@ export class FDbUserDao {
   }
 
   findOne(id: string): FDbUserEntity | null {
-    const entity = this.users.find((t, index) => t._id === id);
+    const entity = this.users.find((t) => t._id === id);
+    return entity ? entity : null;
+  }
+
+  findOneByUsername(username: string): FDbUserEntity | null {
+    const entity = this.users.find((t) => t.username === username);
     return entity ? entity : null;
   }
 
