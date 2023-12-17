@@ -39,7 +39,7 @@ describe('UserRepository', () => {
     const model = await repository.findOneByUsername(inputModel.username);
 
     expect(model).not.toBeNull();
-    expect(model._id).toBe(modelId);
+    expect(model.id).toBe(modelId);
     expect(model.password).not.toBeNull();
   });
 
