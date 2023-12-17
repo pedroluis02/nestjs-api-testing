@@ -1,6 +1,5 @@
 export interface UserLogin {
-  _id: string;
-  id: number;
+  id: string;
+  email: string;
   username: string;
-  password?: string;
 }
