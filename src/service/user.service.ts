@@ -9,8 +9,24 @@ import { UserLogin } from './../domain/model/user-login.model';
 @Injectable()
 export class UserService implements IUserService {
   constructor(private readonly repository: IUserRepository) {}
+  getAll(): Promise<User[]> {
+    return this.repository.findAll();
+  }
+
   getOne(id: string): Promise<User> {
     return this.repository.findOne(id);
+  }
+
+  async validateCredentials(credentials: UserCredentials): Promise<UserLogin> {
+    const model = await this.repository.findOneByUsername(credentials.username);
+    if (
+      model &&
+      (await this.compareEncryptedField(credentials.password, model.password))
+    ) {
+      return this.toUserLogin(model);
+    }
+
+    return null;
   }
 
   async create(model: User): Promise<User> {
@@ -25,16 +41,8 @@ export class UserService implements IUserService {
     return this.repository.update(model);
   }
 
-  async validateCredentials(credentials: UserCredentials): Promise<UserLogin> {
-    const model = await this.repository.findOneByUsername(credentials.username);
-    if (
-      model &&
-      (await this.compareEncryptedField(credentials.password, model.password))
-    ) {
-      return this.toUserLogin(model);
-    }
-
-    return null;
+  delete(id: string): Promise<boolean> {
+    return this.repository.delete(id);
   }
 
   toUserLogin(model: User): UserLogin {
