@@ -31,15 +31,10 @@ export class UserRepository implements IUserRepository {
     return null;
   }
 
-  async findOneByUsername(username: string): Promise<UserLogin | null> {
+  async findOneByUsername(username: string): Promise<User | null> {
     const entity = this.dao.findOneByUsername(username);
     if (entity) {
-      return {
-        _id: entity._id,
-        id: entity.id,
-        username: entity.username,
-        password: entity.password,
-      };
+      return this.mapper.toDomain(entity);
     }
 
     return null;

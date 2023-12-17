@@ -5,7 +5,6 @@ import { User } from './../../../domain/model/user.model';
 import { IUserRepository } from './../../../domain/repository/user.interface';
 import { UserEntity } from './../entity/user.entity';
 import { UserEntityMapper } from './../mapper/user.mapper';
-import { UserLogin } from 'src/domain/model/user-login.model';
 
 @Injectable()
 export class UserRepository implements IUserRepository {
@@ -32,20 +31,10 @@ export class UserRepository implements IUserRepository {
     return null;
   }
 
-  async findOneByUsername(username: string): Promise<UserLogin | null> {
-    const tempEntity = await this.dataSource
-      .createQueryBuilder('user')
-      .select(['user._id', 'user.id', 'user.password'])
-      .where('username = :username', { username })
-      .getOne();
-
-    if (tempEntity) {
-      return {
-        _id: tempEntity._id,
-        id: tempEntity.id,
-        username: username,
-        password: tempEntity.password,
-      };
+  async findOneByUsername(username: string): Promise<User | null> {
+    const entity = await this.dataSource.findOneBy({ username: username });
+    if (entity) {
+      return this.mapper.toDomain(entity);
     }
 
     return null;
