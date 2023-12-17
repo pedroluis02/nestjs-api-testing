@@ -17,11 +17,6 @@ export class UserRepository implements IUserRepository {
     return entities.map(this.mapper.toDomain);
   }
 
-  async getCurrent(): Promise<User> {
-    const entity = this.dao.getCurrent();
-    return this.mapper.toDomain(entity);
-  }
-
   async findOne(id: string): Promise<User | null> {
     const entity = this.dao.findOne(id);
     if (entity) {

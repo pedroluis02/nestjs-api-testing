@@ -4,7 +4,6 @@ import { User } from './../model/user.model';
 
 export abstract class IUserService {
   abstract getOne(id: string): Promise<User | null>;
-  abstract getCurrent(): Promise<User>;
   abstract validateCredentials(
     credentials: UserCredentials,
   ): Promise<UserLogin | null>;

@@ -13,10 +13,6 @@ export class UserService implements IUserService {
     return this.repository.findOne(id);
   }
 
-  getCurrent(): Promise<User> {
-    return this.repository.getCurrent();
-  }
-
   async create(model: User): Promise<User> {
     model.password = await this.encryptField(model.password);
     return this.repository.save(model);

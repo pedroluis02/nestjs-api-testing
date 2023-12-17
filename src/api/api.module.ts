@@ -3,7 +3,6 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { ServiceModule } from './../service/service.module';
-import { CurrentUserController } from './controller/current-user.controller';
 import { GreetingController } from './controller/greeting.controller';
 import { ProjecTypeController } from './controller/project-type.controller';
 import { UserDtoMapper } from './mapper/user-dto.mapper';
@@ -33,7 +32,6 @@ function getConfigJwtExpiration(service: ConfigService): number {
   ],
   controllers: [
     GreetingController,
-    CurrentUserController,
     ProjecTypeController,
     ProjectController,
     UserController,
