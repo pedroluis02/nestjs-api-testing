@@ -1,8 +1,8 @@
-import { IUserService } from './../domain/service/user.interface';
-import { UserLogin } from './../domain/model/user-login.model';
-import { IAuthService } from './../domain/service/auth.interface';
-import { UserCredentials } from './../domain/model/user-credentials';
 import { Injectable } from '@nestjs/common';
+import { IUserService } from './../domain/service/user.interface';
+import { IAuthService } from './../domain/service/auth.interface';
+import { UserLogin } from './../domain/model/user-login.model';
+import { UserCredentials } from './../domain/model/user-credentials';
 
 @Injectable()
 export class AuthService implements IAuthService {

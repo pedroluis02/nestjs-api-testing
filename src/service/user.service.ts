@@ -9,6 +9,9 @@ import { UserLogin } from './../domain/model/user-login.model';
 @Injectable()
 export class UserService implements IUserService {
   constructor(private readonly repository: IUserRepository) {}
+  getOne(id: string): Promise<User> {
+    return this.repository.findOne(id);
+  }
 
   getCurrent(): Promise<User> {
     return this.repository.getCurrent();
@@ -32,10 +35,18 @@ export class UserService implements IUserService {
       model &&
       (await this.compareEncryptedField(credentials.password, model.password))
     ) {
-      return model;
+      return this.toUserLogin(model);
     }
 
     return null;
+  }
+
+  toUserLogin(model: User): UserLogin {
+    return {
+      id: model.id,
+      email: model.email,
+      username: model.username,
+    };
   }
 
   private async compareEncryptedField(
