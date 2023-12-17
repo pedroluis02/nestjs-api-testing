@@ -5,7 +5,6 @@ import { ConfigService } from '@nestjs/config';
 import { ServiceModule } from './../service/service.module';
 import { GreetingController } from './controller/greeting.controller';
 import { ProjecTypeController } from './controller/project-type.controller';
-import { UserDtoMapper } from './mapper/user-dto.mapper';
 import { ProjectController } from './controller/project.controller';
 import { AuthController } from './controller/auth.controller';
 import { LocalPasswordStrategy } from './strategy/local-passport.strategy';
@@ -37,6 +36,6 @@ function getConfigJwtExpiration(service: ConfigService): number {
     UserController,
     AuthController,
   ],
-  providers: [UserDtoMapper, LocalPasswordStrategy, JWTPassportStrategy],
+  providers: [LocalPasswordStrategy, JWTPassportStrategy],
 })
 export class ApiModule {}
