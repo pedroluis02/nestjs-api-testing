@@ -34,7 +34,9 @@ export class UserRepository implements IUserRepository {
   async findOneByUsername(username: string): Promise<User | null> {
     const entity = this.dao.findOneByUsername(username);
     if (entity) {
-      return this.mapper.toDomain(entity);
+      const model = this.mapper.toDomain(entity);
+      model.password = entity.password;
+      return model;
     }
 
     return null;
@@ -44,8 +46,7 @@ export class UserRepository implements IUserRepository {
     const entity = this.mapper.toInsert(model);
     const storedEntity = this.dao.insert(entity);
 
-    model.id = storedEntity._id;
-    return model;
+    return this.mapper.toDomain(storedEntity);
   }
 
   async update(model: Partial<User>): Promise<User | null> {

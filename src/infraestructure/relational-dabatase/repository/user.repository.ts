@@ -34,7 +34,9 @@ export class UserRepository implements IUserRepository {
   async findOneByUsername(username: string): Promise<User | null> {
     const entity = await this.dataSource.findOneBy({ username: username });
     if (entity) {
-      return this.mapper.toDomain(entity);
+      const model = this.mapper.toDomain(entity);
+      model.password = entity.password;
+      return model;
     }
 
     return null;

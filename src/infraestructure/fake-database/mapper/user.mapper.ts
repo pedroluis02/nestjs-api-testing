@@ -10,7 +10,6 @@ export class FDbUserEntityMapper {
       name: entity.name,
       email: entity.email,
       username: entity.username,
-      password: entity.password,
     };
   }
 

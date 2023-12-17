@@ -6,11 +6,16 @@ import { ProjecTypeController } from './controller/project-type.controller';
 import { UserDtoMapper } from './mapper/user-dto.mapper';
 import { ProjectController } from './controller/project.controller';
 import { AuthController } from './controller/auth.controller';
-import { LocalPasswordStrategy } from './strategy/local-password.strategy';
+import { LocalPasswordStrategy } from './strategy/local-passport.strategy';
 import { UserController } from './controller/user.controller';
+import { JWTPassportStrategy } from './strategy/jwt-passport.strategy';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [ServiceModule],
+  imports: [
+    ServiceModule,
+    JwtModule.register({ secret: 'secret', signOptions: { expiresIn: '1d' } }),
+  ],
   controllers: [
     GreetingController,
     CurrentUserController,
@@ -19,6 +24,6 @@ import { UserController } from './controller/user.controller';
     UserController,
     AuthController,
   ],
-  providers: [UserDtoMapper, LocalPasswordStrategy],
+  providers: [UserDtoMapper, LocalPasswordStrategy, JWTPassportStrategy],
 })
 export class ApiModule {}
