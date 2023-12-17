@@ -4,9 +4,9 @@ import { AppModule } from './app.module';
 import { setupSwagger } from './config/swagger';
 import { ConfigService } from '@nestjs/config';
 
-function currentPort(app: INestApplication) {
+function getConfigPort(app: INestApplication): number {
   const config = app.get(ConfigService);
-  return config.get('port');
+  return config.get<number>('port');
 }
 
 async function bootstrap() {
@@ -15,7 +15,7 @@ async function bootstrap() {
 
   setupSwagger(app);
 
-  const port = currentPort(app);
+  const port = getConfigPort(app);
   await app.listen(port);
 }
 
