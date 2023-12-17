@@ -5,7 +5,7 @@ import { IAuthService } from './../../domain/service/auth.interface';
 import { LocalAuthGuard } from '../guard/local-auth.guard';
 import { UserLoginAuth } from './../decorator/user-login.decorator';
 import { UserLogin } from './../../domain/model/user-login.model';
-import { JWTPayload } from 'src/domain/model/jwt-payload.model';
+import { JWTPayload } from './../../domain/model/jwt-payload.model';
 
 @Controller('auth')
 export class AuthController {
@@ -20,7 +20,6 @@ export class AuthController {
     @Body() body: UserLoginDto,
     @UserLoginAuth() userLogin: UserLogin,
   ): Promise<string> {
-    console.log(userLogin);
     return this.createAccessToken(userLogin);
   }
 
