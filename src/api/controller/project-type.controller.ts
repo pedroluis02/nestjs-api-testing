@@ -10,6 +10,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { ProjectType } from './../../domain/model/project-type.model';
 import { IProjectTypeService } from './../../domain/service/project-type.interface';
@@ -17,6 +18,7 @@ import {
   CreateProjectTypeDto,
   UpdateProjectType,
 } from './../dto/project-type-dto';
+import { JWTAuthGuard } from './../guard/jwt-auth.guard';
 
 @Controller('project-types')
 export class ProjecTypeController {
@@ -39,6 +41,7 @@ export class ProjecTypeController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
+  @UseGuards(JWTAuthGuard)
   create(@Body() body: CreateProjectTypeDto): Promise<ProjectType> {
     const model: ProjectType = {
       id: 0,
@@ -51,6 +54,7 @@ export class ProjecTypeController {
 
   @Patch(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
+  @UseGuards(JWTAuthGuard)
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() body: UpdateProjectType,
@@ -71,6 +75,7 @@ export class ProjecTypeController {
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
+  @UseGuards(JWTAuthGuard)
   delete(@Param('id', ParseIntPipe) id: number): Promise<boolean> {
     return this.service.delete(id);
   }

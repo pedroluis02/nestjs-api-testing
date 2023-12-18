@@ -11,7 +11,7 @@ import { JWTPayload } from './../../domain/model/jwt-payload.model';
 export class AuthController {
   constructor(
     private readonly service: IAuthService,
-    private jwtService: JwtService,
+    private readonly jwtService: JwtService,
   ) {}
 
   @Post('/login')
