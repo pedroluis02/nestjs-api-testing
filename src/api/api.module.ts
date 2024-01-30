@@ -1,34 +1,17 @@
 import { Module } from '@nestjs/common';
-
 import { JwtModule } from '@nestjs/jwt';
-import { ConfigService } from '@nestjs/config';
 import { ServiceModule } from './../service/service.module';
 import { GreetingController } from './controller/greeting.controller';
 import { ProjecTypeController } from './controller/project-type.controller';
 import { ProjectController } from './controller/project.controller';
 import { AuthController } from './controller/auth.controller';
-import { LocalPasswordStrategy } from './strategy/local-passport.strategy';
+import { UserAuthStrategy } from './strategy/user-auth.strategy';
 import { UserController } from './controller/user.controller';
-import {
-  JWTPassportStrategy,
-  getConfigJwtSecret,
-} from './strategy/jwt-passport.strategy';
-
-function getConfigJwtExpiration(service: ConfigService): number {
-  return service.get<number>('jwt')['expiresIn'];
-}
+import { AccessTokenStrategy } from './strategy/access-token.strategy';
+import { RefreshTokenStrategy } from './strategy/refresh-token.strategy';
 
 @Module({
-  imports: [
-    JwtModule.registerAsync({
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        secret: getConfigJwtSecret(configService),
-        signOptions: { expiresIn: getConfigJwtExpiration(configService) },
-      }),
-    }),
-    ServiceModule,
-  ],
+  imports: [JwtModule.register({}), ServiceModule],
   controllers: [
     GreetingController,
     ProjecTypeController,
@@ -36,6 +19,6 @@ function getConfigJwtExpiration(service: ConfigService): number {
     UserController,
     AuthController,
   ],
-  providers: [LocalPasswordStrategy, JWTPassportStrategy],
+  providers: [UserAuthStrategy, AccessTokenStrategy, RefreshTokenStrategy],
 })
 export class ApiModule {}

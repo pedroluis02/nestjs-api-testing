@@ -5,4 +5,5 @@ export interface FDbUserEntity {
   email: string;
   username: string;
   password?: string;
+  encryptedPasword?: boolean;
 }

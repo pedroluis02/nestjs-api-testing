@@ -18,7 +18,7 @@ import {
   CreateProjectTypeDto,
   UpdateProjectType,
 } from './../dto/project-type-dto';
-import { JWTAuthGuard } from './../guard/jwt-auth.guard';
+import { AccessTokenGuard } from './../guard/access-token.guard';
 
 @Controller('project-types')
 export class ProjecTypeController {
@@ -41,7 +41,7 @@ export class ProjecTypeController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  @UseGuards(JWTAuthGuard)
+  @UseGuards(AccessTokenGuard)
   create(@Body() body: CreateProjectTypeDto): Promise<ProjectType> {
     const model: ProjectType = {
       id: 0,
@@ -54,7 +54,7 @@ export class ProjecTypeController {
 
   @Patch(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  @UseGuards(JWTAuthGuard)
+  @UseGuards(AccessTokenGuard)
   async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() body: UpdateProjectType,
@@ -75,7 +75,7 @@ export class ProjecTypeController {
 
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
-  @UseGuards(JWTAuthGuard)
+  @UseGuards(AccessTokenGuard)
   delete(@Param('id', ParseIntPipe) id: number): Promise<boolean> {
     return this.service.delete(id);
   }

@@ -3,7 +3,6 @@ import { User } from './../../../domain/model/user.model';
 import { IUserRepository } from './../../../domain/repository/user.interface';
 import { FDbUserDao } from './../dao/user.dao';
 import { FDbUserEntityMapper } from './../mapper/user.mapper';
-import { UserLogin } from './../../../domain/model/user-login.model';
 
 @Injectable()
 export class UserRepository implements IUserRepository {
@@ -31,6 +30,8 @@ export class UserRepository implements IUserRepository {
     if (entity) {
       const model = this.mapper.toDomain(entity);
       model.password = entity.password;
+      model.encryptedPassword = entity.encryptedPasword;
+
       return model;
     }
 

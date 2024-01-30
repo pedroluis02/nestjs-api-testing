@@ -21,7 +21,11 @@ export class UserService implements IUserService {
     const model = await this.repository.findOneByUsername(credentials.username);
     if (
       model &&
-      (await this.compareEncryptedField(credentials.password, model.password))
+      (await this.compareEncryptedField(
+        credentials.password,
+        model.password,
+        model.encryptedPassword,
+      ))
     ) {
       return this.toUserLogin(model);
     }
@@ -31,12 +35,14 @@ export class UserService implements IUserService {
 
   async create(model: User): Promise<User> {
     model.password = await this.encryptField(model.password);
+    model.encryptedPassword = true;
     return this.repository.save(model);
   }
 
   async update(model: Partial<User>): Promise<User> {
     if (model.password) {
       model.password = await this.encryptField(model.password);
+      model.encryptedPassword = true;
     }
     return this.repository.update(model);
   }
@@ -56,7 +62,12 @@ export class UserService implements IUserService {
   private async compareEncryptedField(
     value: string,
     encrypted: string,
+    isEncrypted?: boolean,
   ): Promise<boolean> {
+    if (isEncrypted == false) {
+      return value == encrypted;
+    }
+
     return bcrypt.compare(value, encrypted);
   }
 

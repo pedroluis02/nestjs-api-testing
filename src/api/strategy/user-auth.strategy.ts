@@ -5,7 +5,7 @@ import { IAuthService } from './../../domain/service/auth.interface';
 import { UserCredentials } from './../../domain/model/user-credentials';
 
 @Injectable()
-export class LocalPasswordStrategy extends PassportStrategy(Strategy) {
+export class UserAuthStrategy extends PassportStrategy(Strategy, 'local') {
   constructor(private readonly authService: IAuthService) {
     super({
       usernameField: 'username',

@@ -1,35 +1,38 @@
-import { JwtService } from '@nestjs/jwt';
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
-import { UserLoginDto } from './../dto/auth.dto';
-import { IAuthService } from './../../domain/service/auth.interface';
-import { LocalAuthGuard } from '../guard/local-auth.guard';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { UserLoginDto, UserTokensDto } from './../dto/auth.dto';
+import { ITokenService } from './../../domain/service/token.interface';
+import { UserAuthGuard } from './../guard/user-auth.guard';
 import { UserLoginAuth } from './../decorator/user-login.decorator';
 import { UserLogin } from './../../domain/model/user-login.model';
-import { JWTPayload } from './../../domain/model/jwt-payload.model';
+import { RefreshTokenGuard } from './../guard/refresh-token.guard';
 
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private readonly service: IAuthService,
-    private readonly jwtService: JwtService,
-  ) {}
+  constructor(private readonly service: ITokenService) {}
 
   @Post('/login')
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(UserAuthGuard)
   login(
     @Body() body: UserLoginDto,
     @UserLoginAuth() userLogin: UserLogin,
-  ): Promise<string> {
-    return this.createAccessToken(userLogin);
+  ): Promise<UserTokensDto> {
+    return this.createTokens(userLogin);
   }
 
-  async createAccessToken(user: UserLogin): Promise<string> {
-    const payload: JWTPayload = {
-      sub: user.id,
-      username: user.username,
-      email: user.email,
-    };
+  @UseGuards(RefreshTokenGuard)
+  @Get('/refresh')
+  async refreshAcessToken(
+    @UserLoginAuth() userLogin: UserLogin,
+  ): Promise<UserTokensDto> {
+    await this.service.revokeRefreshToken(userLogin);
+    return this.createTokens(userLogin);
+  }
 
-    return this.jwtService.sign(payload);
+  private async createTokens(user: UserLogin): Promise<UserTokensDto> {
+    return {
+      type: 'Bearer',
+      accessToken: await this.service.createAccessToken(user),
+      refreshToken: await this.service.createRefreshToken(user),
+    };
   }
 }

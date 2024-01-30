@@ -9,3 +9,9 @@ export class UserLoginDto {
   @Length(6, 80)
   password: string;
 }
+
+export interface UserTokensDto {
+  type: string;
+  accessToken: string;
+  refreshToken: string;
+}

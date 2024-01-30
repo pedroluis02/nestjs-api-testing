@@ -14,10 +14,10 @@ import {
 import { IProjectService } from './../../domain/service/project.interface';
 import { Project } from './../../domain/model/project.model';
 import { CreateProjectDto, UpdateProjectDto } from './../dto/project.dto';
-import { JWTAuthGuard } from './../guard/jwt-auth.guard';
+import { AccessTokenGuard } from './../guard/access-token.guard';
 
 @Controller('projects')
-@UseGuards(JWTAuthGuard)
+@UseGuards(AccessTokenGuard)
 export class ProjectController {
   constructor(private readonly service: IProjectService) {}
 

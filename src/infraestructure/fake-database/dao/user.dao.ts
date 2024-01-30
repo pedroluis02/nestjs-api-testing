@@ -11,6 +11,7 @@ export class FDbUserDao {
       email: 'example-user@example.com',
       username: 'example-user',
       password: 'example-user',
+      encryptedPasword: false,
     },
   ];
 

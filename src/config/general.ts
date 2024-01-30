@@ -11,6 +11,10 @@ export default () => {
       secret: env.JWT_SECRET_KEY,
       expiresIn: parseInt(env.JWT_EXPIRES_IN, 10) || 300,
     },
+    jwtRefresh: {
+      secret: env.JWT_REFRESH_SECRET_KEY,
+      expiresIn: parseInt(env.JWT_REFRESH_EXPIRES_IN, 10) || 300,
+    },
   };
 
   return config;

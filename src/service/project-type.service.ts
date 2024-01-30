@@ -1,7 +1,7 @@
+import { Injectable } from '@nestjs/common';
 import { ProjectType } from './../domain/model/project-type.model';
 import { IProjectTypeService } from './../domain/service/project-type.interface';
 import { IProjectTypeRepository } from './../domain/repository/project-type.interface';
-import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class ProjectTypeService implements IProjectTypeService {
