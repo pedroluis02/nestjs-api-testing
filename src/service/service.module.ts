@@ -1,6 +1,5 @@
 import { Module, Provider } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { FakeDatabaseModule } from './../infraestructure/fake-database/fake-database.module';
 import { IUserService } from './../domain/service/user.interface';
 import { IAuthService } from './../domain/service/auth.interface';
 import { ITokenService } from './../domain/service/token.interface';
@@ -12,6 +11,7 @@ import { AuthService } from './auth.service';
 import { TokenService } from './token.service';
 import { ProjectTypeService } from './project-type.service';
 import { ProjectService } from './project.service';
+import { RelationalDatabaseModule } from './../infraestructure/relational-dabatase/relational-dabatase.module';
 
 const providers: Provider[] = [
   {
@@ -37,7 +37,7 @@ const providers: Provider[] = [
 ];
 
 @Module({
-  imports: [JwtModule.register({}), DomainModule, FakeDatabaseModule],
+  imports: [JwtModule.register({}), DomainModule, RelationalDatabaseModule],
   providers: providers,
   exports: providers,
 })

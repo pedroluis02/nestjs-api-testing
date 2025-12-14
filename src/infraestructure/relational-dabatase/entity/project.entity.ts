@@ -6,6 +6,9 @@ import { UserEntity } from './user.entity';
 @Entity('project')
 export class ProjectEntity extends RdbBaseEntity {
   @Column({ nullable: false, unique: true })
+  code: string;
+
+  @Column({ nullable: false })
   name: string;
 
   @Column({ nullable: false })

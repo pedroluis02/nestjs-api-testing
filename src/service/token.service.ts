@@ -1,13 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { RefreshToken } from './../domain/model/refresh-token.model';
+import {
+  RefreshToken,
+  RefreshTokenPayload,
+} from './../domain/model/refresh-token.model';
 import { ITokenService } from './../domain/service/token.interface';
 import { IRefreshTokenRepository } from './../domain/repository/refresh-token.interface';
 import { UserLogin } from './../domain/model/user-login.model';
 import { JwtConfigFields } from './../config/jwt-model';
 import { AccessTokenPayload } from './../domain/model/access-token.model';
-import { RefreshTokenPayload } from './../domain/model/refresh-token.model';
 
 @Injectable()
 export class TokenService implements ITokenService {

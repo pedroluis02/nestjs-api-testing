@@ -17,6 +17,7 @@ import { UserRepository } from './repository/user.repository';
 import { RefreshTokenRepository } from './repository/refresh-token.repository';
 import { ProjectTypeRepository } from './repository/project-type.repository';
 import { ProjectRepository } from './repository/project.repository';
+import { DatabaseConfigFields } from './../../config/db-options';
 
 const mappers = [
   UserEntityMapper,
@@ -56,8 +57,9 @@ const providers: Provider[] = [
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService) => ({
-        ...configService.get('database'),
+      useFactory: (config: ConfigService) => ({
+        type: 'postgres',
+        url: config.get<DatabaseConfigFields>('database').url,
         synchronize: true,
         autoLoadEntities: true,
       }),

@@ -1,4 +1,4 @@
-import { randomUUID } from 'crypto';
+import { randomUUID } from 'node:crypto';
 import { DataType, newDb } from 'pg-mem';
 import { DataSource, EntitySchema, MixedList } from 'typeorm';
 

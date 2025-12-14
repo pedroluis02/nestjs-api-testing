@@ -14,7 +14,7 @@ export class FDbProjectTypeDao {
 
   findOne(id: number): FDbProjectTypeEntity | null {
     const entity = this.types.find((t, index) => t.id === id);
-    return entity ? entity : null;
+    return entity;
   }
 
   findIndex(id: number): number {

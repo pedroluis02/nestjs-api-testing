@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 import { ProjectEntity } from './project.entity';
 import { RdbBaseEntity } from './base.entity';
 
